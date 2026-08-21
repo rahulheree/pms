@@ -1,12 +1,12 @@
 package com.pms.pmsfororg.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "citizens")
-public class Citizen {
+public class Citizen extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,9 @@ public class Citizen {
 
     private String address;
 
-    private Integer wardNo;
-
-    private String zone;
-
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    public void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ward_id", nullable = false)
+    private Ward ward;
 
     public Citizen() {
     }
@@ -51,10 +44,6 @@ public class Citizen {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -97,23 +86,11 @@ public class Citizen {
         this.address = address;
     }
 
-    public Integer getWardNo() {
-        return wardNo;
+    public Ward getWard() {
+        return ward;
     }
 
-    public void setWardNo(Integer wardNo) {
-        this.wardNo = wardNo;
-    }
-
-    public String getZone() {
-        return zone;
-    }
-
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 }

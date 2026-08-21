@@ -19,29 +19,40 @@ public class CitizenController {
     }
 
     @PostMapping
-    public CitizenResponseDTO createCitizen(@Valid @RequestBody CitizenRequestDTO dto) {
-        return citizenService.createCitizen(dto);
+    public CitizenResponseDTO create(@Valid @RequestBody CitizenRequestDTO dto) {
+        return citizenService.create(dto);
     }
 
     @GetMapping
-    public List<CitizenResponseDTO> getAllCitizens() {
-        return citizenService.getAllCitizens();
+    public List<CitizenResponseDTO> getAll() {
+        return citizenService.getAll();
     }
 
     @GetMapping("/{id}")
-    public CitizenResponseDTO getCitizenById(@PathVariable Long id) {
-        return citizenService.getCitizenById(id);
+    public CitizenResponseDTO getById(@PathVariable Long id) {
+        return citizenService.getById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public CitizenResponseDTO getByEmail(@PathVariable String email) {
+        return citizenService.getByEmail(email);
+    }
+
+    @GetMapping("/ward/{wardId}")
+    public List<CitizenResponseDTO> getByWard(@PathVariable Long wardId) {
+        return citizenService.getByWard(wardId);
     }
 
     @PutMapping("/{id}")
-    public CitizenResponseDTO updateCitizen(@PathVariable Long id,
-                                            @Valid @RequestBody CitizenRequestDTO dto) {
-        return citizenService.updateCitizen(id, dto);
+    public CitizenResponseDTO update(
+            @PathVariable Long id,
+            @Valid @RequestBody CitizenRequestDTO dto) {
+        return citizenService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCitizen(@PathVariable Long id) {
-        citizenService.deleteCitizen(id);
-        return "Citizen Deleted Successfully";
+    public String delete(@PathVariable Long id) {
+        citizenService.delete(id);
+        return "Citizen deleted successfully";
     }
 }
